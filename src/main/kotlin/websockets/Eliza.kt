@@ -40,7 +40,7 @@ class Eliza {
             "because" to listOf("Is that the real reason?"),
             "sorry" to listOf("Please don't apologize."),
             "maybe" to listOf("You don't seem very certain."),
-            "i think" to listOf("Do you really think so?"),
+            "i think" to listOf("Do you really think so?"), // Choose this one for the test
             "you" to listOf("We were discussing you, not me."),
             "yes" to listOf("Why do you think so?", "You seem quite positive."),
             "no" to listOf("Why not?", "Are you sure?"),
