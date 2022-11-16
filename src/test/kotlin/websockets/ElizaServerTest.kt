@@ -4,7 +4,6 @@ package websockets
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment.*
@@ -41,7 +40,6 @@ class ElizaServerTest {
     fun onChat() {
         val latch = CountDownLatch(4)
         val list = mutableListOf<String>()
-
         val client = ElizaOnOpenMessageHandlerToComplete(list, latch)
         container.connectToServer(client, URI("ws://localhost:$port/eliza"))
         latch.await()
@@ -61,15 +59,12 @@ class ElizaOnOpenMessageHandler(private val list: MutableList<String>, private v
 
 @ClientEndpoint
 class ElizaOnOpenMessageHandlerToComplete(private val list: MutableList<String>, private val latch: CountDownLatch) {
-
     @OnMessage
     fun onMessage(message: String, session: Session) {
         list.add(message)
         latch.countDown()
         if (list.size == 3) {
-            with(session.basicRemote) {
-                sendText("i think")
-            }
+            session.basicRemote.sendText("i think")
         }
     }
 }
